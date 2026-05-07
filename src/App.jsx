@@ -64,7 +64,7 @@ export default function App() {
             <header className="rounded-[2rem] border border-ink/10 bg-white/85 p-6 shadow-card backdrop-blur md:p-8">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ink/50">Drodz Retas</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ink/50">D-Rodz Retas Matchup</p>
                   <h1 className="mt-2 text-3xl font-black md:text-4xl">Divide your teams fast.</h1>
                 </div>
                 {players.length > 0 && (
