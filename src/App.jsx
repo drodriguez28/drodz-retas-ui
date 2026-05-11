@@ -5,6 +5,13 @@ import TeamSplitPanel from './components/room/TeamSplitPanel'
 import TeamsPanel from './components/room/TeamsPanel'
 import { splitTeams } from './utils/splitTeams'
 
+function parsePlayerNames(rawInput) {
+  return rawInput
+    .split(/[\n,;]+/)
+    .map((name) => name.trim())
+    .filter(Boolean)
+}
+
 export default function App() {
   const [playerName, setPlayerName] = useState('')
   const [teamCount, setTeamCount] = useState(2)
@@ -16,9 +23,14 @@ export default function App() {
 
   const handleAddPlayer = (event) => {
     event.preventDefault()
-    const trimmed = playerName.trim()
-    if (!trimmed) return
-    setPlayers((prev) => [...prev, { id: crypto.randomUUID(), name: trimmed }])
+    const parsedNames = parsePlayerNames(playerName)
+
+    if (parsedNames.length === 0) return
+
+    setPlayers((prev) => [
+      ...prev,
+      ...parsedNames.map((name) => ({ id: crypto.randomUUID(), name })),
+    ])
     setPlayerName('')
     setStatusMessage('')
     setErrorMessage('')
