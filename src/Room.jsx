@@ -19,6 +19,13 @@ function normalizePlayers(playersObject) {
   }))
 }
 
+function parsePlayerNames(rawInput) {
+  return rawInput
+    .split(/[\n,;]+/)
+    .map((name) => name.trim())
+    .filter(Boolean)
+}
+
 export default function Room() {
   const { roomId } = useParams()
   const [playerName, setPlayerName] = useState('')
@@ -55,9 +62,9 @@ export default function Room() {
   const handleAddPlayer = async (event) => {
     event.preventDefault()
 
-    const trimmedName = playerName.trim()
+    const parsedNames = parsePlayerNames(playerName)
 
-    if (!trimmedName || !roomId) {
+    if (parsedNames.length === 0 || !roomId) {
       return
     }
 
@@ -66,7 +73,9 @@ export default function Room() {
     setStatusMessage('')
 
     try {
-      addPlayer(roomId, trimmedName)
+      parsedNames.forEach((name) => {
+        addPlayer(roomId, name)
+      })
 
       setPlayerName('')
     } catch (addError) {

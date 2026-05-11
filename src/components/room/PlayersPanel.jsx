@@ -19,26 +19,26 @@ export default function PlayersPanel({
       </div>
 
       <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <input
-          type="text"
+        <textarea
           value={playerName}
           onChange={onNameChange}
-          placeholder="Enter player name"
-          className="min-w-0 flex-1 rounded-2xl border border-ink/10 bg-paper px-4 py-3 text-base outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30"
+          placeholder="Enter names (comma, semicolon, or new line)"
+          rows={3}
+          className="min-w-0 flex-1 resize-y rounded-2xl border border-ink/10 bg-paper px-4 py-3 text-base outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30"
         />
         <button
           type="submit"
           disabled={isSavingPlayer || !playerName.trim()}
           className="rounded-2xl bg-charcoal px-5 py-3 font-semibold text-white transition hover:bg-[#1e1e1e] disabled:cursor-not-allowed disabled:opacity-70"
         >
-          {isSavingPlayer ? 'Adding...' : 'Add Player'}
+          {isSavingPlayer ? 'Adding...' : 'Add Players'}
         </button>
       </form>
 
       <div className="mt-6 space-y-3">
         {players.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-ink/15 bg-paper px-5 py-8 text-center text-ink/55">
-            No players yet. Add the first one.
+            No players yet. Add one or paste a comma-separated list.
           </div>
         ) : (
           players.map((player, index) => (
